@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4ead8" />
+  <meta name="description" content="The Little Hours — a cozy interactive library experience." />
+  <title>The Little Hours — The Reading Room</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="The Little Hours home">
+        <span class="brand-mark">✳</span>
+        <span><strong>THE LITTLE HOURS</strong><small>A LITTLE PLACE FOR STORIES</small></span>
+      </a>
+      <div class="topbar-right">
+        <span class="chapter-tag"><span class="status-dot"></span> CHAPTER 01</span>
+        <button class="icon-button" id="soundButton" aria-label="Toggle ambience" title="Toggle ambience">♫</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro-row">
+        <div>
+          <p class="eyebrow">THE READING ROOM</p>
+          <h1>A home for <em>every story.</em></h1>
+          <p class="intro-copy">The shelves have been waiting for you. Give these wandering books a place to belong.</p>
+        </div>
+        <div class="progress-card">
+          <div class="progress-heading"><span>ROOM RESTORATION</span><strong id="progressText">0 / 12</strong></div>
+          <div class="progress-track"><span id="progressFill"></span></div>
+          <p id="progressHint">A few stories are still waiting...</p>
+        </div>
+      </section>
+
+      <section class="game-layout">
+        <div class="scene-card">
+          <div class="scene-toolbar">
+            <span><i class="sun-icon">☼</i> A quiet afternoon</span>
+            <span class="scene-note">DRAG A BOOK TO ITS SHELF</span>
+          </div>
+
+          <div class="room-scene" id="roomScene">
+            <div class="back-wall"></div>
+            <div class="window">
+              <div class="window-sky"><span class="cloud cloud-one"></span><span class="cloud cloud-two"></span></div>
+              <div class="window-cross vertical"></div><div class="window-cross horizontal"></div>
+              <div class="window-sill"></div>
+            </div>
+            <div class="wall-frame"><span>✿</span><small>take your time</small></div>
+            <div class="wall-lamp"><span></span></div>
+
+            <div class="floor"></div>
+            <div class="rug"></div>
+
+            <div class="bookcase">
+              <div class="case-top"></div>
+              <div class="case-side"></div>
+              <div class="case-back"></div>
+              <div class="shelf-row" data-shelf="nature">
+                <div class="shelf-label">NATURE & GARDENS</div>
+                <div class="shelf-slots" id="natureSlots"></div>
+              </div>
+              <div class="shelf-row" data-shelf="fiction">
+                <div class="shelf-label">FICTION & TALES</div>
+                <div class="shelf-slots" id="fictionSlots"></div>
+              </div>
+              <div class="shelf-row" data-shelf="mystery">
+                <div class="shelf-label">MYSTERY & wonder</div>
+                <div class="shelf-slots" id="mysterySlots"></div>
+              </div>
+              <div class="case-foot"></div>
+            </div>
+
+            <div class="plant plant-left"><div class="leaves">✦</div><div class="pot"></div></div>
+            <div class="side-table"><div class="table-top"></div><div class="table-leg"></div><div class="table-leg second"></div><div class="table-book"></div><div class="tea-cup">◡</div></div>
+            <div class="floor-note">THE LITTLE HOURS · EST. 1987</div>
+          </div>
+
+          <div class="scene-footer">
+            <span><span class="tiny-spark">✦</span> There is no rush. The tea is still warm.</span>
+            <button class="text-button" id="resetButton">Start over ↺</button>
+          </div>
+        </div>
+
+        <aside class="side-panel">
+          <section class="panel-block basket-block">
+            <div class="panel-title-row">
+              <div><p class="eyebrow">WAITING TO BE FOUND</p><h2>Book basket</h2></div>
+              <span class="count-pill" id="basketCount">12</span>
+            </div>
+            <p class="panel-description">Pick up a book and find the shelf that feels right.</p>
+            <div class="book-basket" id="bookBasket" aria-label="Unsorted books"></div>
+            <div class="basket-empty" id="basketEmpty" hidden>All tucked in. Lovely work! ✨</div>
+          </section>
+
+          <section class="panel-block journal-block">
+            <div class="journal-heading"><span class="journal-icon">✎</span><div><p class="eyebrow">YOUR LITTLE JOURNAL</p><h2>Today's note</h2></div></div>
+            <p id="journalText">The library feels a little sleepy. Perhaps the books are waiting for someone to listen.</p>
+            <div class="journal-rule"></div>
+            <div class="task-row"><span class="task-check" id="taskCheck">○</span><span id="taskText">Find a home for all 12 books.</span></div>
+          </section>
+
+          <div class="hint-card"><span>☕</span><p><strong>A gentle reminder</strong><br>Books know where they belong. Look at their little labels.</p></div>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="footer"><span>MADE FOR SLOW DAYS & GOOD STORIES</span><span>THE LITTLE HOURS <b>✳</b> 2026</span></footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="letter-overlay" id="letterOverlay" aria-hidden="true">
+    <div class="letter-modal">
+      <button class="modal-close" id="closeLetter" aria-label="Close letter">×</button>
+      <div class="letter-stamp">✳</div>
+      <p class="eyebrow">A NOTE LEFT BEHIND</p>
+      <h2>For the one who<br><em>found this place.</em></h2>
+      <div class="letter-divider">✦ ───── ✦</div>
+      <p class="letter-copy">If every story has a home, perhaps every heart does too. Thank you for putting this little room back together.</p>
+      <p class="letter-sign">— Someone who was here before</p>
+      <button class="primary-button" id="keepLetter">Keep this little secret</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
